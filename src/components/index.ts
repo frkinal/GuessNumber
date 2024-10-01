@@ -5,3 +5,5 @@ export * from './text-input';
 export * from './login-form';
 export * from './register-form';
 export * from './table';
+export * from './profile-item';
+export * from './timer';

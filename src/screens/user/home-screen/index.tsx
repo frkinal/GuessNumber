@@ -1,11 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import style from './style';
+import {Button, Timer} from '@components';
 export const HomeScreen = () => {
   const [term, setTerm] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [secretNum] = useState<any>(generateRandomNumber());
   const [stepCount, setStepCount] = useState<number>(0);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [reset, setReset] = useState<boolean>(false);
+
+  const handleStartPause = () => {
+    setIsRunning(!isRunning);
+  };
+
+  const handleReset = () => {
+    setIsRunning(false);
+    setReset(true);
+    setTimeout(() => setReset(false), 0); // Reset işleminden sonra geri alma
+  };
   useEffect(() => {
     setStepCount(0);
   }, [secretNum]);
@@ -41,6 +54,15 @@ export const HomeScreen = () => {
   }
   return (
     <View style={style.container}>
+      <View style={style.controls}>
+        <Button
+          color="white"
+          text={isRunning ? 'Pause' : 'Start'}
+          onPress={handleStartPause}
+        />
+        <Button color="white" text="Reset" onPress={handleReset} />
+      </View>
+      <Timer isRunning={isRunning} onReset={reset} />
       <Text style={style.head}>Guess Number between 1 to 100</Text>
       <TextInput
         style={style.input}
