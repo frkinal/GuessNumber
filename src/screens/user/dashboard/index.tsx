@@ -1,58 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import style from './style';
+import React, {useState} from 'react';
+import {SafeAreaView, Button} from 'react-native';
+import {Table} from '@components';
 export const DashboardScreen = () => {
-  const [term, setTerm] = useState<string>('');
-  const [result, setResult] = useState<string>('');
-  const [secretNum] = useState<any>(generateRandomNumber());
-  const [stepCount, setStepCount] = useState<number>(0);
-  useEffect(() => {
-    setStepCount(0);
-  }, [secretNum]);
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * 100) + 1;
-  }
-  function handleChange(text: string) {
-    setTerm(text);
-  }
-  function checkGuess() {
-    let newResult = '';
-    if (term === '') {
-      newResult = 'Enter Valid Input';
-    } else if (
-      isNaN(Number(term)) ||
-      parseInt(term) < 1 ||
-      parseInt(term) > 100
-    ) {
-      newResult = 'Enter a valid number between 1 and 100';
-    } else {
-      setStepCount(stepCount + 1);
-      if (parseInt(term) < secretNum) {
-        newResult = 'Lower';
-      } else if (parseInt(term) > secretNum) {
-        newResult = 'Higher';
-      } else {
-        newResult = `Yippee, correct! It took you ${stepCount + 1} ${
-          stepCount === 1 ? 'step' : 'steps'
-        }.`;
-      }
-    }
-    setResult(newResult);
-  }
+  const [games, setGames] = useState([
+    {game: 1, score: 100, guesses: 5, time: 30},
+    {game: 2, score: 150, guesses: 3, time: 20},
+    {game: 3, score: 80, guesses: 7, time: 40},
+  ]);
+  const addNewGame = () => {
+    const newGame = {
+      game: games.length + 1,
+      score: Math.floor(Math.random() * 200),
+      guesses: Math.floor(Math.random() * 10) + 1,
+      time: Math.floor(Math.random() * 60),
+    };
+    setGames([...games, newGame]);
+  };
   return (
-    <View style={style.container}>
-      <Text style={style.head}>Guess Number between 1 to 100</Text>
-      <TextInput
-        style={style.input}
-        placeholder="Enter your guess"
-        onChangeText={handleChange}
-        value={term}
-        keyboardType="numeric"
-      />
-      <TouchableOpacity style={style.button} onPress={checkGuess}>
-        <Text style={style.buttonText}>Check</Text>
-      </TouchableOpacity>
-      <Text style={style.result}>You Guessed: {result}</Text>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <Button title="Yeni Oyun Ekle" onPress={addNewGame} />
+      <Table data={games} />
+    </SafeAreaView>
   );
 };

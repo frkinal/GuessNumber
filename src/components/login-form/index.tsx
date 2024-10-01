@@ -33,31 +33,31 @@ export const LoginForm: React.FC<LoginFormProps> = props => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={style.container}>
       <View style={style.welcome_container}>
-        <Text style={style.welcome_text} children="welcome" />
+        <Text style={style.welcome_text} children="Welcome" />
       </View>
       <View style={style.form_container}>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="nickname" />
+          <Text style={style.form_item_text} children="Nickname" />
           <TextInput value={nickname} onChangeText={setNickname} />
-          <Text style={style.form_item_desc} children="nickname_desc" />
         </View>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="password" />
+          <Text style={style.form_item_text} children="Password" />
           <TextInput value={password} onChangeText={setPassword} isPassword />
-          <Text style={style.forgot_password} children="forgot_password" />
+          <Text style={style.forgot_password} children="Forgot Password" />
         </View>
         <View style={style.button_container}>
           <Button
-            text="login"
+            text="Login"
             color="white"
             onPress={login}
             disabled={isLoading?.authLogin}
             isLoading={isLoading?.authLogin}
           />
-          <Text style={style.register_text} children="dont_have_account">
+          <Text style={style.register_text}>
+            Don't have an account?{' '}
             <Text
               style={style.register_text_bold}
-              children="create_account"
+              children="Create Account"
               onPress={() => onPress(setNickname, setPassword)}
             />
           </Text>

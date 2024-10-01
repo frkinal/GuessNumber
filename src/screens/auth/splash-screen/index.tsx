@@ -21,7 +21,7 @@ export const SplashScreen = () => {
   return (
     <ImageBackground
       style={style.container}
-      source={require('../../../assets/images/survey-app-bg.png')}>
+      source={require('../../../assets/images/guess-number-app-bg.png')}>
       <View style={style.inner_container}>
         <ActivityIndicator color={colors.primary} size="large" />
       </View>

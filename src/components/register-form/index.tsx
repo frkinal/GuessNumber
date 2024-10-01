@@ -25,11 +25,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = props => {
   const genderOptions = [
     {
       value: 'male',
-      label: 'Erkek',
+      label: 'Male',
     },
     {
       value: 'female',
-      label: 'Kadın',
+      label: 'Female',
     },
   ];
 
@@ -98,7 +98,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = props => {
       style={style.container}>
       <View style={style.form_container}>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="gender" />
+          <Text style={style.form_item_text} children="Gender" />
           <FlatList
             data={genderOptions}
             keyExtractor={item => item.value}
@@ -108,28 +108,28 @@ export const RegisterForm: React.FC<RegisterFormProps> = props => {
           />
         </View>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="email" />
+          <Text style={style.form_item_text} children="Wmail" />
           <TextInput value={mail} onChangeText={setMail} />
         </View>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="nickname" />
+          <Text style={style.form_item_text} children="Nickname" />
           <TextInput value={nickname} onChangeText={setNickname} />
-          <Text style={style.form_item_desc} children="nickname_desc" />
         </View>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="password" />
+          <Text style={style.form_item_text} children="Password" />
           <TextInput value={password} onChangeText={setPassword} isPassword />
         </View>
         <View style={style.form_item_container}>
-          <Text style={style.form_item_text} children="birthday" />
+          <Text style={style.form_item_text} children="Birthday" />
           <TextInput value={birthday} onChangeText={setbirthday} />
         </View>
         <View style={style.button_container}>
-          <Button text="forward" color="white" onPress={sumbitForm} />
-          <Text style={style.register_text} children="have_account">
+          <Button text="Forward" color="white" onPress={sumbitForm} />
+          <Text style={style.register_text}>
+            You have an account?{' '}
             <Text
               style={style.register_text_bold}
-              children="login"
+              children="Login"
               onPress={() =>
                 goBack(
                   setMail,

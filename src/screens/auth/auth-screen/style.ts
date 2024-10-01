@@ -1,4 +1,3 @@
-import {colors} from '@utils';
 import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   image_container: {
@@ -12,14 +11,6 @@ export default StyleSheet.create({
     bottom: 0,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-  },
-  line: {
-    width: 30,
-    height: 1,
-    left: '50%',
-    position: 'absolute',
-    top: 10,
-    backgroundColor: colors.black,
+    backgroundColor: 'rgba(255,255,255,0.9)',
   },
 });

@@ -16,7 +16,7 @@ export const AuthScreen = () => {
   const {width} = useWindowDimensions();
   const scrollView = useRef<ScrollView>(null);
   useEffect(() => {
-    // dispatch(getAllUser());
+    dispatch(getAllUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const createAccount = (
@@ -28,6 +28,8 @@ export const AuthScreen = () => {
         x: width,
         animated: true,
       });
+      mail('');
+      password('');
     }
   };
   const haveAccount = (
@@ -51,10 +53,9 @@ export const AuthScreen = () => {
   };
   return (
     <ImageBackground
-      source={require('../../../assets/images/survey-app-bg.png')}
+      source={require('../../../assets/images/guess-number-app-bg.png')}
       style={style.image_container}>
       <View style={style.container}>
-        <View style={style.line} />
         <ScrollView
           ref={scrollView}
           horizontal
