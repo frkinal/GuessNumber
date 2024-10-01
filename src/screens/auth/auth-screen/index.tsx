@@ -9,8 +9,9 @@ import {
 import {Button, LoginForm, RegisterForm} from '@components';
 import style from './style';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {getAllUser} from '@services';
+import {getAllUsers} from '@services';
 import {changeUserType} from '../../../redux/slices/auth-slice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthScreen = () => {
   const dispatch = useAppDispatch();
   const {userType} = useAppSelector(state => state.auth);
@@ -18,7 +19,9 @@ export const AuthScreen = () => {
   const {width} = useWindowDimensions();
   const scrollView = useRef<ScrollView>(null);
   useEffect(() => {
-    dispatch(getAllUser());
+    AsyncStorage.getItem('@USERS').then(session => {
+      session === null && dispatch(getAllUsers());
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {

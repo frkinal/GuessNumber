@@ -5,19 +5,14 @@ export const user = createSlice({
     isLoading: {},
     error: {},
     status: {},
-    savedSurveys: [],
   },
   reducers: {
     resetUser: state => {
       state.isLoading = {};
       state.error = {};
       state.status = {};
-      state.savedSurveys = [];
-    },
-    saveSurvey: (state, action) => {
-      state.savedSurveys.push(action.payload);
     },
   },
 });
-export const {resetUser, saveSurvey} = user.actions;
+export const {resetUser} = user.actions;
 export default user.reducer;

@@ -80,7 +80,7 @@ export const getUser = createAsyncThunk('auth/getUser', async () => {
   const res = await api.get(`users/1`);
   return res;
 });
-export const getAllUser = createAsyncThunk('auth/getAllUser', async () => {
+export const getAllUsers = createAsyncThunk('auth/getAllUsers', async () => {
   const res = await api.get('users');
   return res;
 });
