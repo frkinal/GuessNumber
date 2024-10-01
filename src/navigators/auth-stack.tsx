@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useAppSelector} from '@hooks';
-import {GameScreen} from '@screens';
+import {GameScreen, PaymentScreen} from '@screens';
 import {AuthStackParamList} from '@navigators/types';
 import {BottomTab} from './bottom-tab';
 import {AdminBottomTab} from '@navigators';
@@ -16,6 +16,7 @@ export const AuthStack = () => {
         <>
           <Stack.Screen name="BottomTab" component={BottomTab} />
           <Stack.Screen name="GameScreen" component={GameScreen} />
+          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         </>
       )}
     </Stack.Navigator>

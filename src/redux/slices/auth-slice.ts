@@ -5,25 +5,25 @@ export const auth = createSlice({
   initialState: {
     isAuthenticated: '-1',
     user: undefined,
+    userType: '',
     isLoading: {},
     error: {},
     status: {},
-    language: 'tr',
   },
   reducers: {
     resetAuth: state => {
       state.isLoading = {};
       state.isAuthenticated = '0';
+      state.userType = '';
       state.user = undefined;
-      state.language = 'tr';
       state.error = {};
       state.status = {};
     },
     changeAuhtentication: (state, action) => {
       state.isAuthenticated = action.payload;
     },
-    changeLanguageProcess: (state, action) => {
-      state.language = action.payload;
+    changeUserType: (state, action) => {
+      state.userType = action.payload;
     },
   },
   extraReducers: builder => {
@@ -49,7 +49,6 @@ export const auth = createSlice({
         authLogin: action.error || action.payload,
       };
     });
-
     builder.addCase(authRegister.pending, state => {
       state.isLoading = {...state.isLoading, authRegister: true};
     });
@@ -64,7 +63,6 @@ export const auth = createSlice({
         authRegister: action.error || action.payload,
       };
     });
-
     builder.addCase(getUser.pending, state => {
       state.isLoading = {...state.isLoading, getUser: true};
     });
@@ -82,6 +80,5 @@ export const auth = createSlice({
     });
   },
 });
-export const {resetAuth, changeAuhtentication, changeLanguageProcess} =
-  auth.actions;
+export const {resetAuth, changeAuhtentication, changeUserType} = auth.actions;
 export default auth.reducer;

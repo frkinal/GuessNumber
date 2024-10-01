@@ -10,8 +10,11 @@ import {
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import style from './style';
 import {colors} from '@utils';
+import {useNavigation} from '@react-navigation/native';
+import {HomeStackNavigationProp} from '@navigators/types';
 export const CoinStore: React.FC = () => {
-  const [selectedCoin, setSelectedCoin] = useState<number | null>(null);
+  const navigation = useNavigation<HomeStackNavigationProp>();
+  const [selectedCoin, setSelectedCoin] = useState<number>(0);
   const [customAmount, setCustomAmount] = useState<string>(''); // Kullanıcının girdiği özel miktar
   const [isCustomAmount, setIsCustomAmount] = useState<boolean>(false);
   const coinOptions = [100, 500, 1000, 5000]; // Sabit coin seçenekleri
@@ -26,7 +29,7 @@ export const CoinStore: React.FC = () => {
       Alert.alert('Hata', 'Geçerli bir coin miktarı girin.');
       return;
     }
-    Alert.alert('Başarılı!', `${coinToBuy} coin satın alındı!`);
+    navigation.navigate('PaymentScreen', {price: selectedCoin});
   };
   return (
     <ScrollView style={style.container}>

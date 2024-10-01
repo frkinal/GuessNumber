@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 export default StyleSheet.create({
   image_container: {
     flex: 1,
@@ -12,5 +12,11 @@ export default StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     backgroundColor: 'rgba(255,255,255,0.9)',
+  },
+  innerContainer: {
+    width: Dimensions.get('window').width,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

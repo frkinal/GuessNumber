@@ -6,12 +6,14 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import {LoginForm, RegisterForm} from '@components';
+import {Button, LoginForm, RegisterForm} from '@components';
 import style from './style';
-import {useAppDispatch} from '@hooks';
+import {useAppDispatch, useAppSelector} from '@hooks';
 import {getAllUser} from '@services';
+import {changeUserType} from '../../../redux/slices/auth-slice';
 export const AuthScreen = () => {
   const dispatch = useAppDispatch();
+  const {userType} = useAppSelector(state => state.auth);
   const animation = useRef(new Animated.Value(0)).current;
   const {width} = useWindowDimensions();
   const scrollView = useRef<ScrollView>(null);
@@ -19,13 +21,22 @@ export const AuthScreen = () => {
     dispatch(getAllUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (userType === 'admin' || userType === 'user') {
+      scrollView?.current?.scrollTo({
+        x: width,
+        animated: true,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userType]);
   const createAccount = (
     mail: (val: string) => void,
     password: (val: string) => void,
   ) => {
     if (scrollView.current) {
       scrollView?.current?.scrollTo({
-        x: width,
+        x: width * 2,
         animated: true,
       });
       mail('');
@@ -41,7 +52,7 @@ export const AuthScreen = () => {
   ) => {
     if (scrollView.current) {
       scrollView?.current?.scrollTo({
-        x: -width,
+        x: width,
         animated: true,
       });
       mail('');
@@ -50,6 +61,18 @@ export const AuthScreen = () => {
       gender('');
       birthday('');
     }
+  };
+  const goBack = () => {
+    if (scrollView.current) {
+      dispatch(changeUserType(''));
+      scrollView?.current?.scrollTo({
+        x: -width,
+        animated: true,
+      });
+    }
+  };
+  const handleChangeUserType = (type: string) => {
+    dispatch(changeUserType(type));
   };
   return (
     <ImageBackground
@@ -67,23 +90,38 @@ export const AuthScreen = () => {
             [{nativeEvent: {contentOffset: {x: animation}}}],
             {useNativeDriver: false},
           )}>
+          <View style={style.innerContainer}>
+            <Button
+              text="Admin"
+              color="white"
+              onPress={() => handleChangeUserType('admin')}
+            />
+            <Button
+              text="User"
+              color="white"
+              onPress={() => handleChangeUserType('user')}
+            />
+          </View>
           <LoginForm
+            goBack={goBack}
             onPress={(
               mail: (val: string) => void,
               password: (val: string) => void,
             ) => createAccount(mail, password)}
           />
-          <ScrollView>
-            <RegisterForm
-              onPress={(
-                mail: (val: string) => void,
-                password: (val: string) => void,
-                nickname: (val: string) => void,
-                gender: (val: string) => void,
-                birthday: (val: string) => void,
-              ) => haveAccount(mail, password, nickname, gender, birthday)}
-            />
-          </ScrollView>
+          {userType === 'user' && (
+            <ScrollView>
+              <RegisterForm
+                onPress={(
+                  mail: (val: string) => void,
+                  password: (val: string) => void,
+                  nickname: (val: string) => void,
+                  gender: (val: string) => void,
+                  birthday: (val: string) => void,
+                ) => haveAccount(mail, password, nickname, gender, birthday)}
+              />
+            </ScrollView>
+          )}
         </ScrollView>
       </View>
     </ImageBackground>
