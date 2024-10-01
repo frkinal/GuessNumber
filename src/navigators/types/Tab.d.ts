@@ -2,8 +2,9 @@ import {
   BottomTabNavigationProp,
   BottomTabScreenProps,
 } from '@react-navigation/bottom-tabs';
+import {HomeStackParamList} from '@navigators/types';
 export type TabParamList = {
-  HomeScreen: undefined;
+  HomeStack: HomeStackParamList;
   DashboardScreen: undefined;
   ProfileScreen: undefined;
 };

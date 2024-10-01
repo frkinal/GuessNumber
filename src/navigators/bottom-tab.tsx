@@ -3,13 +3,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, StyleSheet, Platform, Text} from 'react-native';
 import {Survey, Profile, Home} from '@assets';
 import {Colors, colors} from '@utils';
-import {DashboardScreen, HomeScreen, ProfileScreen} from '@screens';
+import {DashboardScreen, ProfileScreen} from '@screens';
 import {TabParamList} from '@navigators/types';
+import {HomeStack} from '@navigators';
 const Tab = createBottomTabNavigator<TabParamList>();
 export const BottomTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="HomeStack"
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarActiveTintColor: '#000',
@@ -19,7 +20,7 @@ export const BottomTab = () => {
         tabBarStyle: styles.tabBar,
         tabBarIcon: ({focused}) => {
           const color: Colors = focused ? 'tabActive' : 'white';
-          if (route.name === 'HomeScreen') {
+          if (route.name === 'HomeStack') {
             return (
               <View
                 style={[
@@ -51,7 +52,7 @@ export const BottomTab = () => {
         },
       })}>
       <Tab.Screen name="DashboardScreen" component={DashboardScreen} />
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="HomeStack" component={HomeStack} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
   );

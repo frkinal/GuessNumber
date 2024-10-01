@@ -10,7 +10,7 @@ export const AppStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {isAuthenticated === '1' ? (
-        <Stack.Screen name="HomeStack" component={BottomTab} />
+        <Stack.Screen name="BottomTab" component={BottomTab} />
       ) : isAuthenticated === '-1' ? (
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
       ) : (

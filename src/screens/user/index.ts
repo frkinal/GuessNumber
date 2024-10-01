@@ -1,3 +1,3 @@
-export * from './home-screen';
+export * from './home';
 export * from './dashboard';
 export * from './profile-screen';

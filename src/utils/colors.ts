@@ -14,5 +14,6 @@ export const colors = {
   normal: '#E3C700',
   good: '#7ABC11',
   great: '#25C133',
+  coin: '#FFD700',
 };
 export type Colors = keyof typeof colors;

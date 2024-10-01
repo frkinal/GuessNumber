@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import style from './style';
 import {Button, Timer} from '@components';
-export const HomeScreen = () => {
+export const GameScreen = () => {
   const [term, setTerm] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [secretNum] = useState<any>(generateRandomNumber());
