@@ -10,3 +10,14 @@ export type {
   HomeStackNavigationProp,
   HomeStackRouteProps,
 } from './HomeStack';
+export type {
+  AdminHomeTabNavigationProp,
+  AdminHomeTabRouteProps,
+  AdminHomeTabParamList,
+} from './AdminBottomTab';
+export type {
+  AdminTabNavigationProp,
+  AdminTabRouteProps,
+  AdminTabParamList,
+} from './AdminTab';
+export type {AuthStackParamList} from './AuthStack';

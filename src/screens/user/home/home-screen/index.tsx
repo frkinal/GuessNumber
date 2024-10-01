@@ -8,7 +8,6 @@ export const HomeScreen = () => {
   const navigation = useNavigation<HomeStackNavigationProp>();
   const startGame = () => navigation.navigate('GameScreen');
   const addCoin = () => navigation.navigate('CoinStoreScreen');
-
   return (
     <View style={style.container}>
       <Button text="Start Game" color="white" onPress={startGame} />

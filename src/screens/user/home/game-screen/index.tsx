@@ -1,23 +1,58 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import style from './style';
-import {Button, Timer} from '@components';
+import {Timer} from '@components';
+import {useNavigation} from '@react-navigation/native';
+import {HomeTabNavigationProp} from '@navigators/types';
 export const GameScreen = () => {
+  const navigation = useNavigation<HomeTabNavigationProp>();
   const [term, setTerm] = useState<string>('');
   const [result, setResult] = useState<string>('');
   const [secretNum] = useState<any>(generateRandomNumber());
   const [stepCount, setStepCount] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
-
+  useEffect(() => {
+    handleStartPause();
+    return () => handleReset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert(
+        'You are about to leave the page',
+        'Are you sure you want to leave this page?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'Yes', onPress: () => navigation.goBack()},
+        ],
+      );
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   const handleStartPause = () => {
     setIsRunning(!isRunning);
   };
-
   const handleReset = () => {
     setIsRunning(false);
     setReset(true);
-    setTimeout(() => setReset(false), 0); // Reset işleminden sonra geri alma
+    setTimeout(() => setReset(false), 0);
   };
   useEffect(() => {
     setStepCount(0);
@@ -54,15 +89,10 @@ export const GameScreen = () => {
   }
   return (
     <View style={style.container}>
-      <View style={style.controls}>
-        <Button
-          color="white"
-          text={isRunning ? 'Pause' : 'Start'}
-          onPress={handleStartPause}
-        />
-        <Button color="white" text="Reset" onPress={handleReset} />
+      <View style={style.timerContainer}>
+        <Text>Timer: </Text>
+        <Timer isRunning={isRunning} onReset={reset} />
       </View>
-      <Timer isRunning={isRunning} onReset={reset} />
       <Text style={style.head}>Guess Number between 1 to 100</Text>
       <TextInput
         style={style.input}

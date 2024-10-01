@@ -31,9 +31,7 @@ export const CoinStore: React.FC = () => {
   return (
     <ScrollView style={style.container}>
       <Text style={style.header}>🎮 Coin Satın Al 🎮</Text>
-
       <Text style={style.subHeader}>Hangi miktarı satın almak istersiniz?</Text>
-
       <View style={style.coinOptionsContainer}>
         {coinOptions.map((coin, index) => (
           <TouchableOpacity

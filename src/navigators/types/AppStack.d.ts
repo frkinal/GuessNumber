@@ -1,5 +1,5 @@
 export type AppStackParamList = {
-  BottomTab: undefined;
+  AuthStack: undefined;
   SplashScreen: undefined;
   AuthScreen: undefined;
 };

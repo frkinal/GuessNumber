@@ -26,7 +26,6 @@ export const Timer: React.FC<TimerProps> = props => {
   return (
     <View style={style.container}>
       <Text style={style.timerText}>{formatTime(seconds)}</Text>
-      <Text style={style.timerText}>{seconds}</Text>
     </View>
   );
 };
