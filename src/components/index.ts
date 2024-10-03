@@ -7,3 +7,4 @@ export * from './register-form';
 export * from './table';
 export * from './profile-item';
 export * from './timer';
+export * from './header';

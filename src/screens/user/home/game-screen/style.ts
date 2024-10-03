@@ -8,6 +8,12 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   timerContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timerText: {
+    fontSize: 48,
+    fontWeight: 'bold',
   },
   head: {
     fontWeight: 'bold',

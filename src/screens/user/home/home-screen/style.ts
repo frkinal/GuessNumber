@@ -1,11 +1,13 @@
-import {colors} from '@utils';
 import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f2f2f2',
+  },
+  innerContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f2f2f2',
     padding: 16,
   },
   head: {

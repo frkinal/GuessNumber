@@ -1,4 +1,4 @@
-import {createAsyncThunk, Dispatch, GetThunkAPI} from '@reduxjs/toolkit';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {Login, Register} from '@services/types';
@@ -9,27 +9,9 @@ const api = axios.create({
     Accept: 'application/json',
   },
 });
-type AsyncThunkConfig = {
-  /** return type for `thunkApi.getState` */
-  state?: unknown;
-  /** type for `thunkApi.dispatch` */
-  dispatch?: Dispatch;
-  /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
-  extra?: unknown;
-  /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
-  rejectValue?: unknown;
-  /** return type of the `serializeError` option callback */
-  serializedErrorType?: unknown;
-  /** type to be returned from the `getPendingMeta` option callback & merged into `pendingAction.meta` */
-  pendingMeta?: unknown;
-  /** type to be passed into the second argument of `fulfillWithValue` to finally be merged into `fulfilledAction.meta` */
-  fulfilledMeta?: unknown;
-  /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
-  rejectedMeta?: unknown;
-};
 export const authLogin = createAsyncThunk(
   'auth/authLogin',
-  async (data: Login, thunkApi: GetThunkAPI<AsyncThunkConfig>) => {
+  async (data: Login) => {
     const {nickname, password} = data;
     const res = await api.post(
       'auth/login',
@@ -40,8 +22,7 @@ export const authLogin = createAsyncThunk(
     );
     if (res?.status === 200) {
       api.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
-      AsyncStorage.setItem('@USER', JSON.stringify(data));
-      thunkApi.dispatch(getUser());
+      AsyncStorage.setItem('@LOGIN', JSON.stringify(data));
     }
     return res;
   },
@@ -76,10 +57,6 @@ export const authRegister = createAsyncThunk(
     return res;
   },
 );
-export const getUser = createAsyncThunk('auth/getUser', async () => {
-  const res = await api.get(`users/1`);
-  return res;
-});
 export const getAllUsers = createAsyncThunk('auth/getAllUsers', async () => {
   const res = await api.get('users');
   return res;

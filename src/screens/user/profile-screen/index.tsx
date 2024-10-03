@@ -1,8 +1,7 @@
 import React from 'react';
 import {FlatList, Text, View} from 'react-native';
-import {ProfileItem} from '@components';
+import {Header, ProfileItem} from '@components';
 import {ProfileItemContents} from '@components/types';
-import {Profile} from '@assets';
 import style from './style';
 export const ProfileScreen = () => {
   const data = [
@@ -17,10 +16,7 @@ export const ProfileScreen = () => {
   };
   return (
     <View style={style.container}>
-      <View style={style.profile_container}>
-        <View>{Profile('primary')}</View>
-        <Text style={style.profile_text}>PROFİL</Text>
-      </View>
+      <Header title="Profile" right />
       <View style={style.render_item_container}>
         <FlatList
           data={data}

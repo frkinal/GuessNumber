@@ -9,7 +9,7 @@ import style from './style';
 export const SplashScreen = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    AsyncStorage.getItem('@USER')
+    AsyncStorage.getItem('@LOGIN')
       .then(session => {
         session !== null
           ? dispatch(authLogin(JSON.parse(session)))

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createSlice} from '@reduxjs/toolkit';
-import {authLogin, authRegister, getAllUsers, getUser} from '@services';
+import {authLogin, authRegister, getAllUsers, } from '@services';
 export const auth = createSlice({
   name: 'auth',
   initialState: {
@@ -66,22 +66,6 @@ export const auth = createSlice({
         authRegister: action.error || action.payload,
       };
     });
-    builder.addCase(getUser.pending, state => {
-      state.isLoading = {...state.isLoading, getUser: true};
-    });
-    builder.addCase(getUser.fulfilled, (state, action) => {
-      state.isLoading = {...state.isLoading, getUser: false};
-      state.status = {...state.status, getUser: action.payload?.status};
-      state.user = action.payload?.data;
-    });
-    builder.addCase(getUser.rejected, (state, action) => {
-      state.isLoading = {...state.isLoading, getUser: false};
-      state.error = {
-        ...state.error,
-        getUser: action.error || action.payload,
-      };
-    });
-
     builder.addCase(getAllUsers.pending, state => {
       state.isLoading = {...state.isLoading, getAllUsers: true};
     });

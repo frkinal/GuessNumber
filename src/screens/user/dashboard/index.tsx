@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {Table} from '@components';
+import {Header, Table} from '@components';
 import style from './style';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TableContent} from '@components/types';
 export const DashboardScreen = () => {
-  const [games, setGames] = useState([
-    {game: 1, score: 100, guesses: 5, time: 30},
-    {game: 2, score: 150, guesses: 3, time: 20},
-    {game: 3, score: 80, guesses: 7, time: 40},
-  ]);
+  const [games, setGames] = useState<Array<TableContent>>([]);
+  useEffect(() => {
+    AsyncStorage.getItem('@USER').then(res => {
+      if (res !== null) {
+        setGames(JSON.parse(res).game);
+      }
+    });
+  }, []);
   return (
     <View style={style.container}>
+      <Header right title="Dashboard" />
       <Table data={games} />
     </View>
   );

@@ -8,9 +8,10 @@ import {
   Alert,
 } from 'react-native';
 import style from './style';
-import {Timer} from '@components';
+import {Header, Timer} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {HomeTabNavigationProp} from '@navigators/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const GameScreen = () => {
   const navigation = useNavigation<HomeTabNavigationProp>();
   const [term, setTerm] = useState<string>('');
@@ -19,6 +20,23 @@ export const GameScreen = () => {
   const [stepCount, setStepCount] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [reset, setReset] = useState<boolean>(false);
+  const [seconds, setSeconds] = useState<number>(0);
+  useEffect(() => {
+    let interval: any = null;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setSeconds(prevSeconds => prevSeconds + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning]);
+  useEffect(() => {
+    if (reset) {
+      setSeconds(0);
+    }
+  }, [reset]);
   useEffect(() => {
     handleStartPause();
     return () => handleReset();
@@ -83,6 +101,57 @@ export const GameScreen = () => {
         newResult = `Yippee, correct! It took you ${stepCount + 1} ${
           stepCount === 1 ? 'step' : 'steps'
         }.`;
+        Alert.alert(
+          'Yippeee',
+          `Correct! It took you ${stepCount + 1} ${
+            stepCount === 1 ? 'step' : 'steps'
+          }.`,
+          [
+            {
+              text: 'Ok',
+              onPress: () => {
+                AsyncStorage.getItem('@USERS').then(res => {
+                  if (res !== null) {
+                    AsyncStorage.getItem('@USER').then(response => {
+                      if (response !== null) {
+                        const user = JSON.parse(response);
+                        AsyncStorage.setItem(
+                          '@USERS',
+                          JSON.stringify(
+                            JSON.parse(res).map((item: any) => {
+                              if (item?.username === user?.username) {
+                                return {
+                                  ...item,
+                                  game: [
+                                    ...item?.game,
+                                    {
+                                      game: 1,
+                                      guesses: stepCount + 1,
+                                      time: seconds,
+                                      score: stepCount + 1,
+                                    },
+                                  ],
+                                };
+                              }
+                            }),
+                          ),
+                        ).then(() => {
+                          BackHandler.removeEventListener(
+                            'hardwareBackPress',
+                            () => {
+                              return true;
+                            },
+                          );
+                          navigation.goBack();
+                        });
+                      }
+                    });
+                  }
+                });
+              },
+            },
+          ],
+        );
       }
     }
     setResult(newResult);
@@ -91,7 +160,9 @@ export const GameScreen = () => {
     <View style={style.container}>
       <View style={style.timerContainer}>
         <Text>Timer: </Text>
-        <Timer isRunning={isRunning} onReset={reset} />
+        <View style={style.timerContainer}>
+          <Text style={style.timerText}>{formatTime(seconds)}</Text>
+        </View>
       </View>
       <Text style={style.head}>Guess Number between 1 to 100</Text>
       <TextInput
@@ -107,4 +178,11 @@ export const GameScreen = () => {
       <Text style={style.result}>You Guessed: {result}</Text>
     </View>
   );
+};
+const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${
+    remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+  }`;
 };
