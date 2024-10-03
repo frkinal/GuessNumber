@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, StyleSheet, Platform, Text} from 'react-native';
-import {Survey, Profile} from '@assets';
+import {Survey, Home} from '@assets';
 import {Colors, colors} from '@utils';
-import {AdminHomeScreen, AdminUsersScreen} from '@screens';
+import {AdminHomeScreen, AdminDashboardScreen} from '@screens';
 import {AdminTabParamList} from '@navigators/types';
 const Tab = createBottomTabNavigator<AdminTabParamList>();
 export const AdminBottomTab = () => {
@@ -22,18 +22,18 @@ export const AdminBottomTab = () => {
           if (route.name === 'AdminHomeScreen') {
             return (
               <View style={styles.tab}>
-                {Survey(color)}
+                {Home(color)}
                 <Text style={[styles.tab_text, {color: colors[color]}]}>
-                  Dashboard
+                  Home
                 </Text>
               </View>
             );
-          } else if (route.name === 'AdminUsersScreen') {
+          } else if (route.name === 'AdminDashboardScreen') {
             return (
               <View style={styles.tab}>
-                {Profile(color)}
+                {Survey(color)}
                 <Text style={[styles.tab_text, {color: colors[color]}]}>
-                  Profile
+                  Dashboard
                 </Text>
               </View>
             );
@@ -41,7 +41,7 @@ export const AdminBottomTab = () => {
         },
       })}>
       <Tab.Screen name="AdminHomeScreen" component={AdminHomeScreen} />
-      <Tab.Screen name="AdminUsersScreen" component={AdminUsersScreen} />
+      <Tab.Screen name="AdminDashboardScreen" component={AdminDashboardScreen} />
     </Tab.Navigator>
   );
 };

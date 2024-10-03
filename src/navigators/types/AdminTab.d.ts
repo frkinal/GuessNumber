@@ -4,7 +4,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 export type AdminTabParamList = {
   AdminHomeScreen: undefined;
-  AdminUsersScreen: undefined;
+  AdminDashboardScreen: undefined;
 };
 export type AdminTabNavigationProp =
   BottomTabNavigationProp<AdminHomeTabParamList>;

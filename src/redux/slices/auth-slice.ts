@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createSlice} from '@reduxjs/toolkit';
-import {authLogin, authRegister, getAllUsers, } from '@services';
+import {authLogin, authRegister, getAllUsers} from '@services';
 export const auth = createSlice({
   name: 'auth',
   initialState: {
     isAuthenticated: '-1',
     user: undefined,
     users: undefined,
-    userType: '',
+    userType: 'admin',
     isLoading: {},
     error: {},
     status: {},
@@ -27,6 +27,7 @@ export const auth = createSlice({
     },
     changeUserType: (state, action) => {
       state.userType = action.payload;
+      AsyncStorage.setItem('@USERTYPE', JSON.stringify({type: action.payload}));
     },
   },
   extraReducers: builder => {

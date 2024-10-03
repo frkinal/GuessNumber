@@ -4,18 +4,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '@hooks';
 import {authLogin} from '@services';
 import {colors} from '@utils';
-import {changeAuhtentication} from '../../../redux/slices/auth-slice';
+import {
+  changeAuhtentication,
+  changeUserType,
+} from '../../../redux/slices/auth-slice';
 import style from './style';
 export const SplashScreen = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    AsyncStorage.getItem('@LOGIN')
-      .then(session => {
-        session !== null
-          ? dispatch(authLogin(JSON.parse(session)))
-          : dispatch(changeAuhtentication('0'));
-      })
-      .catch(err => console.log(err));
+    AsyncStorage.getItem('@USERTYPE').then((res: any) => {
+      if (res !== null) {
+        try {
+          AsyncStorage.getItem('@LOGIN')
+            .then(session => {
+              session !== null
+                ? dispatch(authLogin(JSON.parse(session)))
+                : dispatch(changeAuhtentication('0'));
+            })
+            .catch(err => console.log(err));
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        dispatch(changeAuhtentication('0'));
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

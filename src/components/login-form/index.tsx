@@ -53,15 +53,15 @@ export const LoginForm: React.FC<LoginFormProps> = props => {
           <TextInput value={password} onChangeText={setPassword} isPassword />
           <Text style={style.forgot_password} children="Forgot Password" />
         </View>
-        {userType === 'user' && (
-          <View style={style.button_container}>
-            <Button
-              text="Login"
-              color="white"
-              onPress={login}
-              disabled={isLoading?.authLogin}
-              isLoading={isLoading?.authLogin}
-            />
+        <View style={style.button_container}>
+          <Button
+            text="Login"
+            color="white"
+            onPress={login}
+            disabled={isLoading?.authLogin}
+            isLoading={isLoading?.authLogin}
+          />
+          {userType === 'user' && (
             <Text style={style.register_text}>
               Don't have an account?{' '}
               <Text
@@ -70,8 +70,8 @@ export const LoginForm: React.FC<LoginFormProps> = props => {
                 onPress={() => onPress(setNickname, setPassword)}
               />
             </Text>
-          </View>
-        )}
+          )}
+        </View>
       </View>
     </KeyboardAvoidingView>
   );

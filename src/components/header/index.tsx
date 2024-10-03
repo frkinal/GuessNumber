@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = props => {
   const dispatch = useAppDispatch();
   const {left, title, right} = props;
   const logout = () => {
-    AsyncStorage.multiRemove(['@LOGIN', '@USER']);
+    AsyncStorage.multiRemove(['@LOGIN', '@USER', '@USERTYPE']);
     dispatch(changeAuhtentication('0'));
   };
   const goBack = () => navigation.goBack();

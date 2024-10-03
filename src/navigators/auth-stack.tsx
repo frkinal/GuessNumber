@@ -7,17 +7,19 @@ import {BottomTab} from './bottom-tab';
 import {AdminBottomTab} from '@navigators';
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 export const AuthStack = () => {
-  const {isAdmin} = useAppSelector(state => state.auth);
+  const {userType} = useAppSelector(state => state.auth);
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {isAdmin ? (
+      {userType === 'admin' ? (
         <Stack.Screen name="AdminBottomTab" component={AdminBottomTab} />
-      ) : (
+      ) : userType === 'user' ? (
         <>
           <Stack.Screen name="BottomTab" component={BottomTab} />
           <Stack.Screen name="GameScreen" component={GameScreen} />
           <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         </>
+      ) : (
+        <></>
       )}
     </Stack.Navigator>
   );

@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useAppSelector} from '@hooks';
 import {AuthScreen, SplashScreen} from '@screens';
 import {AppStackParamList} from '@navigators/types';
-import { AuthStack } from '@navigators';
+import {AuthStack} from '@navigators';
 const Stack = createNativeStackNavigator<AppStackParamList>();
 export const AppStack = () => {
   const {isAuthenticated} = useAppSelector(state => state.auth);

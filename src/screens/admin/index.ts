@@ -1,2 +1,2 @@
 export * from './admin-home-screen';
-export * from './admin-users-screen';
+export * from './admin-dashboard-screen';
