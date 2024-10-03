@@ -121,6 +121,10 @@ export const GameScreen = () => {
                               if (item?.username === user?.username) {
                                 return {
                                   ...item,
+                                  balance:
+                                    stepCount + 1 === 3
+                                      ? item?.balance + 2000
+                                      : item?.balance,
                                   game: [
                                     ...item?.game,
                                     {

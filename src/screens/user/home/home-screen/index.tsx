@@ -7,9 +7,19 @@ import {HomeStackNavigationProp} from '@navigators/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeStackNavigationProp>();
-  const startGame = () => navigation.navigate('GameScreen');
+  const startGame = () => {
+    if (userData?.balance < 100) {
+      Alert.alert(
+        'Error',
+        'The balance in your account is insufficient. Please try again after adding funds.',
+      );
+    } else {
+      navigation.navigate('GameScreen');
+    }
+  };
   const addCoin = () => navigation.navigate('CoinStoreScreen');
   const [users, setUsers] = useState<Array<any>>([]);
+  const [userData, setUserData] = useState<any>([]);
   useEffect(() => {
     AsyncStorage.getItem('@USERS').then(res => {
       res !== null && setUsers(JSON.parse(res));
@@ -20,6 +30,9 @@ export const HomeScreen = () => {
       AsyncStorage.getItem('@LOGIN')
         .then(res => {
           if (res !== null) {
+            setUserData(
+              users.find(x => x.username === JSON.parse(res).nickname),
+            );
             AsyncStorage.setItem(
               '@USER',
               JSON.stringify(

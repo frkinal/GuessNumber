@@ -19,14 +19,24 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   content_container: {
-    width: '80%',
+    width: '60%',
     height: '100%',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+  },
+  balanceContainer: {
+    width: '25%',
+    height: '100%',
+  },
+  balance: {
+    fontSize: 14,
+    color: colors.black,
   },
   username: {
     fontSize: 16,
     color: colors.black,
   },
+
   email: {
     fontSize: 14,
     color: colors.gray,

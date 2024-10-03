@@ -7,17 +7,18 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import style from './style';
 import {colors} from '@utils';
 import {useNavigation} from '@react-navigation/native';
 import {HomeStackNavigationProp} from '@navigators/types';
+import {Header, Icon} from '@components';
+
 export const CoinStore: React.FC = () => {
   const navigation = useNavigation<HomeStackNavigationProp>();
   const [selectedCoin, setSelectedCoin] = useState<number>(0);
-  const [customAmount, setCustomAmount] = useState<string>(''); // Kullanıcının girdiği özel miktar
+  const [customAmount, setCustomAmount] = useState<string>(''); // Custom amount entered by the user
   const [isCustomAmount, setIsCustomAmount] = useState<boolean>(false);
-  const coinOptions = [100, 500, 1000, 5000]; // Sabit coin seçenekleri
+  const coinOptions = [100, 500, 1000, 5000]; // Fixed coin options
   const handleCoinSelect = (amount: number) => {
     setSelectedCoin(amount);
     setIsCustomAmount(false);
@@ -26,15 +27,15 @@ export const CoinStore: React.FC = () => {
   const handlePurchase = () => {
     const coinToBuy = isCustomAmount ? parseInt(customAmount) : selectedCoin;
     if (!coinToBuy || coinToBuy <= 0) {
-      Alert.alert('Hata', 'Geçerli bir coin miktarı girin.');
+      Alert.alert('Error', 'Please enter a valid coin amount.');
       return;
     }
     navigation.navigate('PaymentScreen', {price: selectedCoin});
   };
   return (
     <ScrollView style={style.container}>
-      <Text style={style.header}>🎮 Coin Satın Al 🎮</Text>
-      <Text style={style.subHeader}>Hangi miktarı satın almak istersiniz?</Text>
+      <Header title="Coin Store" left />
+      <Text style={style.subHeader}>Which amount would you like to buy?</Text>
       <View style={style.coinOptionsContainer}>
         {coinOptions.map((coin, index) => (
           <TouchableOpacity
@@ -46,13 +47,10 @@ export const CoinStore: React.FC = () => {
                 : null,
             ]}
             onPress={() => handleCoinSelect(coin)}>
-            <Icon
-              type={IconType.MaterialIcons}
-              name="monetization-on"
-              size={30}
-              color={colors.coin}
-            />
-            <Text style={style.coinText}>{coin} Coin</Text>
+            <View style={style.iconContainer}>
+              <Icon icon="Coin" />
+            </View>
+            <Text style={style.coinText}>{coin} Coins</Text>
           </TouchableOpacity>
         ))}
         <TouchableOpacity
@@ -64,33 +62,24 @@ export const CoinStore: React.FC = () => {
             setIsCustomAmount(true);
             setSelectedCoin(null);
           }}>
-          <Icon
-            type={IconType.MaterialIcons}
-            name="attach-money"
-            size={30}
-            color={colors.coin}
-          />
-          <Text style={style.coinText}>Özel Miktar</Text>
+          <View style={style.iconContainer}>
+            <Icon icon="Coin" />
+          </View>
+          <Text style={style.coinText}>Custom Amount</Text>
         </TouchableOpacity>
       </View>
-
       {isCustomAmount && (
         <TextInput
           style={style.input}
           keyboardType="numeric"
           value={customAmount}
-          placeholder="Miktarı Girin"
+          placeholder="Enter Amount"
           onChangeText={setCustomAmount}
         />
       )}
-
       <TouchableOpacity style={style.purchaseButton} onPress={handlePurchase}>
-        <Text style={style.purchaseButtonText}>Satın Al</Text>
+        <Text style={style.purchaseButtonText}>Buy</Text>
       </TouchableOpacity>
-
-      <Text style={style.footer}>
-        * Satın aldığınız coinler oyun içi ödüller için kullanılabilir!
-      </Text>
     </ScrollView>
   );
 };

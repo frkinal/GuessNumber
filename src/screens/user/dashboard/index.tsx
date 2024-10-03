@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, View} from 'react-native';
+import {View} from 'react-native';
 import {Header, Table} from '@components';
 import style from './style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,11 +10,6 @@ export const DashboardScreen = () => {
     AsyncStorage.getItem('@USER').then(res => {
       if (res !== null) {
         setGames(JSON.parse(res).game);
-      }
-    });
-    AsyncStorage.getItem('@USERS').then(res => {
-      if (res !== null) {
-        Alert.alert('asd', JSON.stringify(JSON.parse(res)));
       }
     });
   }, []);

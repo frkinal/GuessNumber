@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
-import {View, Platform, KeyboardAvoidingView, Alert, Text} from 'react-native';
-import {Button, TextInput} from '@components';
+import {
+  View,
+  Platform,
+  KeyboardAvoidingView,
+  Alert,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {Button, TextInput, Icon} from '@components';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {authLogin} from '@services';
 import style from './style';
 import {LoginFormProps} from '@components/types';
-import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 export const LoginForm: React.FC<LoginFormProps> = props => {
   const {onPress, goBack} = props;
   const dispatch = useAppDispatch();
@@ -34,14 +40,13 @@ export const LoginForm: React.FC<LoginFormProps> = props => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={style.container}>
       <View style={style.welcome_container}>
-        <Icon
-          type={IconType.AntDesign}
-          name="left"
-          size={30}
-          color="black"
-          onPress={goBack}
-        />
-        <Text style={style.welcome_text} children="Welcome" />
+        <TouchableOpacity onPress={goBack}>
+          <Icon icon="ArrowLeft" />
+        </TouchableOpacity>
+        <View style={style.welcomeTextContainer}>
+          <Text style={style.welcome_text} children="Welcome" />
+        </View>
+        <View style={style.iconContainer} />
       </View>
       <View style={style.form_container}>
         <View style={style.form_item_container}>

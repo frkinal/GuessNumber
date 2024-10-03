@@ -1,4 +1,3 @@
-export type {ProfileItemProps, ProfileItemContents} from './ProfileItem';
 export type {ModalProps} from './Modal';
 export type {TextInputProps} from './TextInput';
 export type {ButtonProps} from './Button';

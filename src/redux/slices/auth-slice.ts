@@ -84,6 +84,7 @@ export const auth = createSlice({
               username: item.username,
               name: item.name,
               phone: item.phone,
+              balance: 100,
               game: [
                 {
                   game: 0,

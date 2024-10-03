@@ -10,6 +10,7 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/native';
 import style from './style';
 import {HomeStackRouteProps} from '@navigators/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const PaymentScreen = () => {
   const route = useRoute<HomeStackRouteProps>();
   const navigation = useNavigation();
@@ -68,17 +69,44 @@ export const PaymentScreen = () => {
   const validateExpiryDate = (date: string) =>
     /^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(date);
   const validateCVC = (cvc: string) => /^[0-9]{3}$/.test(cvc);
-
+  const goBack = () => {
+    AsyncStorage.getItem('@USERS').then(res => {
+      if (res !== null) {
+        AsyncStorage.getItem('@USER').then(response => {
+          if (response !== null) {
+            const user = JSON.parse(response);
+            AsyncStorage.setItem(
+              '@USERS',
+              JSON.stringify(
+                JSON.parse(res).map((item: any) => {
+                  if (item?.username === user?.username) {
+                    return {
+                      ...item,
+                      balance: (item.balance += price),
+                    };
+                  } else {
+                    return item;
+                  }
+                }),
+              ),
+            ).then(() => {
+              BackHandler.removeEventListener('hardwareBackPress', () => {
+                return true;
+              });
+              navigation.goBack();
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <>
       {isSuccess ? (
         <View style={style.container}>
           <Text style={style.title}>Payment Successful!</Text>
           <Text style={style.message}>Thank you for your payment.</Text>
-
-          <TouchableOpacity
-            style={style.button}
-            onPress={() => navigation.goBack()}>
+          <TouchableOpacity style={style.button} onPress={goBack}>
             <Text style={style.buttonText}>Go to Home</Text>
           </TouchableOpacity>
         </View>

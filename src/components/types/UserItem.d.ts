@@ -9,4 +9,5 @@ export interface UserItemContents {
   };
   email: string;
   game: TableContent;
+  balance: number;
 }

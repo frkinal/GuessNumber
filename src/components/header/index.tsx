@@ -1,12 +1,12 @@
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import style from './style';
 import {HeaderProps} from '@components/types';
-import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch} from '@hooks';
 import {changeAuhtentication} from '../../redux/slices/auth-slice';
 import {useNavigation} from '@react-navigation/native';
+import {Icon} from '@components';
 export const Header: React.FC<HeaderProps> = props => {
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
@@ -20,13 +20,9 @@ export const Header: React.FC<HeaderProps> = props => {
     <View style={style.container}>
       <View style={style.leftContainer}>
         {left && (
-          <Icon
-            type={IconType.Ionicons}
-            name="arrow-back"
-            size={25}
-            color="black"
-            onPress={goBack}
-          />
+          <TouchableOpacity onPress={goBack}>
+            <Icon icon="ArrowLeft" />
+          </TouchableOpacity>
         )}
       </View>
       <View style={style.midContainer}>
@@ -34,13 +30,9 @@ export const Header: React.FC<HeaderProps> = props => {
       </View>
       <View style={style.rightContainer}>
         {right && (
-          <Icon
-            type={IconType.Ionicons}
-            name="exit-outline"
-            size={25}
-            color="black"
-            onPress={logout}
-          />
+          <TouchableOpacity onPress={logout}>
+            <Icon icon="Exit" />
+          </TouchableOpacity>
         )}
       </View>
     </View>

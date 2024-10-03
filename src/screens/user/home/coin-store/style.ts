@@ -39,6 +39,12 @@ export default StyleSheet.create({
     backgroundColor: '#007BFF',
     borderColor: '#0056b3',
   },
+  iconContainer: {
+    width: 35,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   coinText: {
     fontSize: 16,
     fontWeight: '500',

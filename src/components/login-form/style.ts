@@ -5,10 +5,24 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   welcome_container: {
-    width: '100%',
+    width: '90%',
+    alignSelf: 'center',
     height: '20%',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  iconContainer: {
+    width: '15%',
+    height: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  welcomeTextContainer: {
+    width: '70%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   welcome_text: {
     fontSize: 24,

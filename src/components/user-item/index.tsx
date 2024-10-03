@@ -9,7 +9,7 @@ export const UserItem: React.FC<UserItemProps> = props => {
   const navigation = useNavigation<AdminTabNavigationProp>();
   const [totalScore, setTotalScore] = useState<number>(0);
   const {
-    contents: {name, email, game},
+    contents: {name, email, game, balance},
   } = props;
   useEffect(() => {
     var sum = 0;
@@ -31,6 +31,10 @@ export const UserItem: React.FC<UserItemProps> = props => {
         </Text>
         <Text style={style.email}>{email}</Text>
         <Text style={style.totalScore}>Total Score: {totalScore}</Text>
+      </View>
+      <View style={style.balanceContainer}>
+        <Text style={style.balance}>Balance</Text>
+        <Text style={style.balance}> {balance}$</Text>
       </View>
     </TouchableOpacity>
   );
