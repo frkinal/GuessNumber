@@ -5,6 +5,7 @@ export type {ButtonProps} from './Button';
 export type {LoginFormProps} from './Login';
 export type {RegisterFormProps} from './Register';
 export type {TableProps, TableContent} from './Table';
+export type {AdminTableProps, AdminTableContent} from './AdminTable';
 export type {TimerProps} from './Timer';
 export type {HeaderProps} from './Header';
 export type {UserItemProps, UserItemContents} from './UserItem';

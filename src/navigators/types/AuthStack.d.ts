@@ -3,4 +3,5 @@ export type AuthStackParamList = {
   GameScreen: undefined;
   BottomTab: undefined;
   PaymentScreen: undefined;
+  AuthScreen: undefined;
 };

@@ -8,7 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import style from './style';
-import {Header, Timer} from '@components';
 import {useNavigation} from '@react-navigation/native';
 import {HomeTabNavigationProp} from '@navigators/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -132,6 +131,8 @@ export const GameScreen = () => {
                                     },
                                   ],
                                 };
+                              } else {
+                                return item;
                               }
                             }),
                           ),
